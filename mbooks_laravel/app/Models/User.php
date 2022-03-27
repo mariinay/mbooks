@@ -23,6 +23,21 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function isAdmin()
+    {
+        return $this->admin;
+    }
+
+    public function favBooks()
+    {
+        return $this->hasMany(FavBook::class);
+    }
+
+    public function cartBooks()
+    {
+        return $this->hasMany(CartBook::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
