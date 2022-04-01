@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AuthorCollection;
+use App\Http\Resources\AuthorResource;
 use App\Models\Author;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AuthorController extends Controller
 {
@@ -15,7 +18,7 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::all();
-        return $authors;
+        return new AuthorCollection($authors);
     }
 
     /**
@@ -36,7 +39,19 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $author = Author::create([
+            'name' => $request->name,
+        ]);
+
+        return response()->json(['Author created successfully.', new AuthorResource($author)]);
     }
 
     /**
@@ -51,7 +66,7 @@ class AuthorController extends Controller
         if (is_null($author)) {
             return response()->json('Data not found', 404);
         }
-        return response()->json($author);
+        return new AuthorResource($author);
     }
 
     /**
@@ -72,9 +87,23 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, $id)
     {
-        //
+        $author = Author::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:50',
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+
+        $author->name = $request->name;
+
+        $author->save();
+
+        return response()->json(['Author updated successfully.', new AuthorResource($author)]);
     }
 
     /**
@@ -85,6 +114,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+        return response()->json('Author deleted successfully.');
     }
 }
