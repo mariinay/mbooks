@@ -5,8 +5,13 @@ use App\Http\Controllers\AuthorBookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryBookController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavBookController;
+use App\Http\Controllers\ItemsByOrderController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,11 +31,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 
-Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
-Route::get('/suthors/{id}', [AuthorController::class, 'show'])->name('authors.show');
+
+Route::resource('users', UserController::class);
+
+Route::resource('data', UserDataController::class)->only(['show', 'store', 'update', 'destroy']);
+
+Route::resource('orders', OrderController::class);
+Route::resource('items', OrderItemController::class);
+Route::resource('orders.items', ItemsByOrderController::class)->only('index');
+
+Route::resource('authors', AuthorController::class);
+Route::resource('categories', CategoryController::class);
 
 Route::resource('books', BookController::class);
 Route::resource('authors.books', AuthorBookController::class)->only('index');
@@ -47,7 +59,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::resource('books', BookController::class)->only(['update', 'store', 'destroy'])->middleware('admin');
 
-    Route::resource('favbooks', FavBookController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('authors', AuthorController::class)->only(['update', 'store', 'destroy'])->middleware('admin');
+
+
+    Route::resource('favbooks', FavBookController::class)->only(['index', 'show', 'store', 'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
