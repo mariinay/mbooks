@@ -23,12 +23,14 @@ const LoginPage = ({addToken}) => {
 
     function handleLogin(e){
         e.preventDefault();
+       
         axios.post("http://127.0.0.1:8000/api/login",userData).
         then((res)=>
         {
             console.log(res.data);
             if(res.data.success===true) {
-                window.sessionStorage.setItem("auth_token",res.data.access_token);
+               localStorage.setItem("auth_token",res.data.access_token);
+                console.log(res.data);
                 addToken(res.data.access_token);
                 navigate("/books");
             }

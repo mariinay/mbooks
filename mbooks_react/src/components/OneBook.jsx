@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import "./OneBook.css"
 import {FaRegHeart} from "react-icons/fa"
 import {AiOutlineShoppingCart} from "react-icons/ai"
-
+// import "../../../mbooks_images"
 
 
 const OneBook = ({book,readMore,onAdd}) => {
   return (
     <div className='book'>
-        <img className='book-img-top' src="https:/picsum.photos/200" alt="Photo"/>
+        <img className='book-img-top' src={book.image} alt="Book"/>
         <div className='book-body'>
             <h3 className='book-title'>{book.title}</h3>
             <h5 className='book-author'>{book.author.name}</h5> 

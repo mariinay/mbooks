@@ -9,7 +9,8 @@ import BooksPage from './components/BooksPage';
 import BookDetails from './components/BookDetails';
 import axios from 'axios';
 import Contact from './components/Contact';
-
+import FilterAuthors from "./components/FilterAuthors"
+import FilterCategory from './components/FilterCategory';
 
 function App() {
     const [token,setToken]=useState();
@@ -48,6 +49,26 @@ function App() {
     }
 },[favouriteBooks]);
 
+const [authorBooks, setAuthorBooks]=useState([]);
+const seeAuthor = (id) => {
+    
+    books.map((book) => {
+      if(book.author.id === id){
+        authorBooks.push(book);
+      }
+    });
+  }
+
+  
+const [categoryBooks, setCategoryBooks]=useState([]);
+const seeCategories = (id) => {
+    
+    books.map((book) => {
+      if(book.category.id === id){
+        categoryBooks.push(book);
+      }
+    });
+  }
 
 
 
@@ -60,12 +81,14 @@ function App() {
             
                 <Route path="/register" element={<RegisterPage/>}/> 
             
-                <Route path="books" element={<BooksPage readMore={readMore}  />}/> 
+                <Route path="books" element={<BooksPage readMore={readMore} seeAuthor={seeAuthor} seeCategories={seeCategories}  />}/> 
 
                 <Route path="/details" element = {<BookDetails book={bookDetails}/>}/> 
-         
-               
 
+                <Route path="/filterAuthors" element = {<FilterAuthors books={authorBooks} />}/>
+                
+                <Route path="/filterCategories" element = {<FilterCategory books={categoryBooks} />}/> 
+         
                 <Route path="/contact" element={<Contact /> }/>
 
             </Route>
