@@ -48,7 +48,7 @@ const BooksPage = ({readMore,seeAuthor,seeCategories}) => {
     
     
     function sort(){
-        setSortedBooks(books.sort((a,b)=>{
+        books.sort((a,b)=>{
             if (a.title < b.title) {
               return -1;
             }
@@ -56,9 +56,8 @@ const BooksPage = ({readMore,seeAuthor,seeCategories}) => {
               return 1;
             }
             return 0;
-          }))
-        
-        setBooks(sortedBooks)
+          });
+        setSortedBooks(books)
     }
     
   
