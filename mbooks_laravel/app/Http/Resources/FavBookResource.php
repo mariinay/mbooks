@@ -17,7 +17,9 @@ class FavBookResource extends JsonResource
 
     public function toArray($request)
     {
+
         return [
+            'id' => $this->resource->id,
             'user' => new UserResource($this->resource->user),
             'book' => new BookResource($this->resource->book)
         ];

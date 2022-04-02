@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\FavBookCollection;
 use App\Http\Resources\FavBookResource;
 use App\Models\FavBook;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -68,11 +69,11 @@ class FavBookController extends Controller
      * @param  \App\Models\FavBook  $favBook
      * @return \Illuminate\Http\Response
      */
-    public function show($book_id)
+    public function show($favBook_id)
     {
-        $user_id = auth()->user()->id;
-        $books = FavBook::get()->where('user_id', $user_id);
-        $favBook = $books::find()->where('book_id', $book_id);
+
+
+        $favBook = FavBook::get()->where('id', $favBook_id)->first();
         if (!$favBook) {
             return response()->json('Data not found', 404);
         }
@@ -105,11 +106,16 @@ class FavBookController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\FavBook  $favBook
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FavBook $favBook)
+    public function destroy($favBook_id)
     {
+
+        $favBook = FavBook::get()->where('id', $favBook_id)->first();
+        if (!$favBook) {
+            return response()->json('Data not found', 404);
+        }
+
         $favBook->delete();
 
         return response()->json('Book removed from favourites successfully.');

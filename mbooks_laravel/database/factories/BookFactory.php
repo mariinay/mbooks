@@ -24,6 +24,7 @@ class BookFactory extends Factory
             'image' => '/mbooks_images/pic1.png',
             'author_id' => Author::factory(),
             'category_id' => Category::factory(),
+            'price' => $this->faker->randomFloat(2, 5, 100),
         ];
     }
 }

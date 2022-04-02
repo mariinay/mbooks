@@ -20,7 +20,8 @@ class BookResource extends JsonResource
             'description' => $this->resource->description,
             'image' => $this->resource->image,
             'category' => new CategoryResource($this->resource->category),
-            'author' => new AuthorResource($this->resource->author)
+            'author' => new AuthorResource($this->resource->author),
+            'price' => $this->resource->price
         ];
     }
 }
