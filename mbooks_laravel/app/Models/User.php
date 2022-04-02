@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_data_id'
     ];
 
     public function isAdmin()
@@ -33,9 +34,10 @@ class User extends Authenticatable
         return $this->hasMany(FavBook::class);
     }
 
-    public function cartBooks()
+
+    public function userData()
     {
-        return $this->hasMany(CartBook::class);
+        return $this->hasOne(UserData::class, 'user_id');
     }
 
     /**
