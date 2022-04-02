@@ -44,19 +44,35 @@ const BooksPage = ({readMore,seeAuthor,seeCategories}) => {
     },[categories]);
    
     
+    const [sortedBooks, setSortedBooks]=useState();
     
-
+    
+    function sort(){
+        setSortedBooks(books.sort((a,b)=>{
+            if (a.title < b.title) {
+              return -1;
+            }
+            if (a.title > b.title) {
+              return 1;
+            }
+            return 0;
+          }))
+        
+        setBooks(sortedBooks)
+    }
     
   
-
+ 
     return (
+    
         <div className="all-books-page" >
             <h1 style={{marginLeft:23+"px"}}>Books</h1>
 
             <p>
-                <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse3" aria-expanded="true" aria-controls="multiCollapse3" style={{backgroundColor:"rgb(33, 37, 41)"}}>Categories</button>
-                <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse1" aria-expanded="true" aria-controls="multiCollapse1" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>Authors</button>
-                <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse2" aria-expanded="true" aria-controls="multiCollapse2" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>Search</button>
+                <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse3" aria-expanded="false" aria-controls="multiCollapse3" style={{backgroundColor:"rgb(33, 37, 41)"}}>Categories</button>
+                <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse1" aria-expanded="false" aria-controls="multiCollapse1" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>Authors</button>
+                <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse2" aria-expanded="false" aria-controls="multiCollapse2" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>Search</button>
+                <button className="btn btn-primary mb-1" type="button" onClick={sort} style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>Sort</button>
             </p>
 
             
