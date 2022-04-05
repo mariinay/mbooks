@@ -80,7 +80,7 @@ const BooksPage = ({readMore,seeAuthor,seeCategories}) => {
 
                     
                 <div className="col">
-                    <div className="multi-collapse collapse show" id="multiCollapse3" >
+                    <div className="multi-collapse collapse " id="multiCollapse3" >
                         {categories==null ? <></> : categories.map((category) => (
                              <li  key={category.id}><Link to="/filterCategories" onClick={()=> seeCategories(category.id)} style={{background:'transparent', borderWidth:0+"px", color:"black"}} >{category.name}</Link></li> ))} 
                                 
@@ -89,7 +89,7 @@ const BooksPage = ({readMore,seeAuthor,seeCategories}) => {
 
                 
                 <div className="col">
-                    <div className="multi-collapse collapse show" id="multiCollapse1" >
+                    <div className="multi-collapse collapse " id="multiCollapse1" >
                         {authors==null ? <></> : authors.map((author) => (
                              <li key={author.id}><Link to="/filterAuthors" onClick={()=> seeAuthor(author.id)} style={{background:'transparent', borderWidth:0+"px", color:"black"}} >{author.name}</Link></li>  ))} 
                                      
@@ -98,7 +98,7 @@ const BooksPage = ({readMore,seeAuthor,seeCategories}) => {
 
             
                 <div className="col">
-                    <div className="multi-collapse collapse show" id="multiCollapse2" >
+                    <div className="multi-collapse collapse " id="multiCollapse2" >
                     <div className="card card-body">
                         Type in a book
                     </div>
