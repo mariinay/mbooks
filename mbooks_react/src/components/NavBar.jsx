@@ -3,8 +3,10 @@ import Mbooks from "../Mbooks.png"
 import "./NavBar.css"
 import axios from 'axios'
 import { Outlet } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
-const NavBar = ({token}) => {
+
+const NavBar = ({token, cartNum}) => {
 
     function handleLogout(){
 
@@ -41,34 +43,34 @@ const NavBar = ({token}) => {
                 <div className="collapse navbar-collapse show" id="navbarDark">
                 <ul className="navbar-nav me-auto mb-2 mb-xl-0">
                     <li className="nav-item">
-                        <a className="nav-link active" aria-current="page" href="/books">Books</a>
+                        <Link to='/books'className="nav-link active" aria-current="page" >Books</Link>
                     </li>
                     <li className="nav-item">
-                    <   a className="nav-link " href="/favourites">Favourites</a>
+                        <Link to='/favourites' className="nav-link ">Favourites</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Cart</a>
+                        <Link to='/cart' className="nav-link">Cart {cartNum}</Link>
                     </li> 
                     <li className="nav-item">
-                        <a className="nav-link" href="/contact">Contact</a>
+                        <Link to='/contact' className="nav-link">Contact</Link>
                     </li>               
                 </ul>
                 <ul className="navbar-nav me-auto mb-10 mb-xl-0" style={{paddingLeft:55+"rem"}}>
                 {token==null ? (
                         <li className="nav-item">
-                            <a className="nav-link" href="/login">Login</a>
+                            <Link to='/login' className="nav-link">Login</Link>
                         </li>
                 ):(      
                         <li className="nav-item">
-                            <a className="nav-link" onClick={handleLogout}>Logout</a>
+                            <Link to='#' className="nav-link" onClick={handleLogout}>Logout</Link>
                         </li>
                 )}
                     
                     <li className="nav-item">
-                        <a className="nav-link" href="/register">Register</a>
+                        <Link to='/register' className="nav-link"></Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Profile</a>
+                        <Link to='#' className="nav-link">Profile</Link>
                     </li>
                 </ul>
                 </div>
