@@ -6,7 +6,7 @@ import {AiOutlineShoppingCart} from "react-icons/ai"
 // import "../../../mbooks_images"
 
 
-const OneBook = ({book,readMore,onAdd}) => {
+const OneBook = ({book,readMore,addToCart}) => {
   return (
     <div className='book'>
         <img className='book-img-top' src={book.image} alt="Book"/>
@@ -18,7 +18,7 @@ const OneBook = ({book,readMore,onAdd}) => {
         <button className="book-button" >
             <FaRegHeart/>
         </button>
-        <button className="book-button">
+        <button className="book-button" onClick={()=> addToCart(book.id)}>
             <AiOutlineShoppingCart/>
         </button>
     </div>

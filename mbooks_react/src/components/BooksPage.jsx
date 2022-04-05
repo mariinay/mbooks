@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 
 
-const BooksPage = ({readMore,seeAuthor,seeCategories}) => {
+const BooksPage = ({readMore,seeAuthor,seeCategories,addToCart}) => {
 
     
 
@@ -111,7 +111,7 @@ const BooksPage = ({readMore,seeAuthor,seeCategories}) => {
 
             <div className="all-books">
                 {books==null ? <></> :  books.map((book)=>(
-                    <OneBook  book={book} key={book.id} readMore={readMore} />
+                    <OneBook  book={book} key={book.id} readMore={readMore} addToCart={addToCart}/>
                 ))}
             </div>
         </div>
