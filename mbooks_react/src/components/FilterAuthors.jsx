@@ -1,6 +1,5 @@
 import React from 'react'
 import OneBook from './OneBook';
-import axios from 'axios';
 
 import "./OneBook.css"
 
