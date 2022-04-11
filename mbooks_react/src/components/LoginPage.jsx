@@ -4,9 +4,10 @@ import axios from "axios"
 import "./LoginPage.css"
 import Mbooks from "../Mbooks.png"
 import { useNavigate } from 'react-router-dom'
+import UserData from './UserData'
 
 
-const LoginPage = ({addToken}) => {
+const LoginPage = ({addToken, addUser}) => {
 
     let navigate=useNavigate();
 
@@ -32,6 +33,7 @@ const LoginPage = ({addToken}) => {
                localStorage.setItem("auth_token",res.data.access_token);
                 console.log(res.data);
                 addToken(res.data.access_token);
+                addUser(userData);
                 navigate("/books");
             }
 

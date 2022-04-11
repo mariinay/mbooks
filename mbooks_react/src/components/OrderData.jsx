@@ -1,25 +1,6 @@
 import React from 'react'
-import { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
 
-
-const CartPage = ({orderItems, books, totalPrice, removeFromCart}) => {
-
-    let navigate = useNavigate();
-
-
-    console.log(orderItems);
-   // const [total, setTotal] = useState(0);
-    /*orderItems==null ? <></> :  orderItems.map((item)=>(
-        books==null ? <></> :  books.map((book)=>(
-            book.id == item.book_id ? setTotal(total+=(book.price * item.quantity)) : <></>
-        ))
-    ))*/
-
-    function navigateToOrderPage(){
-        navigate("/order");
-    }
-   
+const OrderData = ({orderItems, books, totalPrice}) => {
   return (
     <table className="table table-dark">
         <thead>
@@ -48,22 +29,15 @@ const CartPage = ({orderItems, books, totalPrice, removeFromCart}) => {
                             ))} $
                         </td>
                         <td>{item.quantity}</td>
-                        <td>
-                            <button onClick={()=> removeFromCart(item.id)}>Remove</button>
-                        </td>
                     </tr>
                 ))}
             <tr>
             <td colSpan="2" scope="row" >Total price:</td>
             <td>{totalPrice.toFixed(2)} $</td>
-            <td></td>
-            <td>
-                <button onClick={navigateToOrderPage}>Proceed to checkout</button>
-            </td>
             </tr>
         </tbody>
     </table>
   )
 }
 
-export default CartPage
+export default OrderData
