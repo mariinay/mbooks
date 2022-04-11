@@ -26,6 +26,7 @@ class UserDataResource extends JsonResource
             'city' => $this->resource->city,
             'postal_code' => $this->resource->postal_code,
             'phone_number' => $this->resource->phone_number,
+            'user' => $this->resource->user_id,
         ];
     }
 }

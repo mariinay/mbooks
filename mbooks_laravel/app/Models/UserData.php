@@ -17,6 +17,7 @@ class UserData extends Model
         'city',
         'postal_code',
         'phone_number',
+        'user_id',
     ];
 
     public function user()
