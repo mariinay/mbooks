@@ -12,6 +12,9 @@ import Contact from './components/Contact';
 import FilterAuthors from "./components/FilterAuthors"
 import FilterCategory from './components/FilterCategory';
 import CartPage from './components/CartPage';
+import OrderPage from './components/OrderPage';
+import UserData from './components/UserData';
+import UserDataUpdate from './components/UserDataUpdate';
 
 function App() {
     const [token,setToken]=useState();
@@ -19,6 +22,55 @@ function App() {
     function addToken(auth_token){
         setToken(auth_token);
     }
+
+    const [users, setUsers]=useState();
+    useEffect(()=>{
+        if(users==null){
+            axios.get("http://127.0.0.1:8000/api/users").then((res)=>{
+                console.log(res.data);
+                setUsers(res.data.users);
+            });
+        }
+    },[users]);
+
+    const [userData, setUserData] = useState();
+    useEffect(()=>{
+        if(userData==null){
+            axios.get("http://127.0.0.1:8000/api/data").then((res)=>{
+                console.log(res.data);
+                setUserData(res.data.userData);
+            });
+        }
+    },[userData]);
+
+    //logged user data
+    const [currentUserData, setCurrentUserData] = useState();
+
+    
+    //logged user
+    const [currentUser, setCurrentUser] = useState();
+
+    function addUser(u){ 
+        if(users != null){
+            users.map((user) =>{
+                if(user.email == u.email){
+                    setCurrentUser(user);
+                    console.log(user);
+                    console.log(user.user_data);
+                    setCurrentUserData(user.user_data);
+                    
+                };
+            });
+        };
+    }
+
+    
+
+    function updateUserData(newData){
+        setCurrentUserData(newData);
+        console.log(newData);
+    }
+
 
     const [books, setBooks]=useState();
     useEffect(()=>{
@@ -134,7 +186,7 @@ function App() {
         <Routes>
             <Route path="/" element={<NavBar token={token} setToken={setToken} cartNum={cartNum}/>}>
 
-                <Route path="/login" element={<LoginPage addToken={addToken}/>}/>  
+                <Route path="/login" element={<LoginPage addToken={addToken} addUser={addUser} />}/>  
             
                 <Route path="/register" element={<RegisterPage/>}/> 
             
@@ -147,8 +199,14 @@ function App() {
                 <Route path="/filterCategories" element = {<FilterCategory books={categoryBooks} />}/> 
 
                 <Route path="/cart" element = {<CartPage orderItems={orderItems} books={books} totalPrice={totalPrice} removeFromCart={removeFromCart}/>}/> 
+
+                <Route path="/order" element = {<OrderPage currentUser={currentUser} currentUserData={currentUserData} orderItems={orderItems} totalPrice={totalPrice} books={books} cartNum={cartNum} />}/>
          
                 <Route path="/contact" element={<Contact /> }/>
+
+                <Route path="/user-data" element={<UserData currentUser={currentUser} /> }/>
+
+                <Route path="/user-data-update" element={<UserDataUpdate currentUser={currentUser} currentUserData={currentUserData} updateUserData={updateUserData}/> }/>
 
             </Route>
 

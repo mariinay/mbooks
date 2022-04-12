@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import "./OneBook.css"
 import {FaRegHeart} from "react-icons/fa"
 import {AiOutlineShoppingCart} from "react-icons/ai"
-// import "../../../mbooks_images"
 
 
 const OneBook = ({book,readMore,addToCart}) => {

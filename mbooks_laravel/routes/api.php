@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('users', UserController::class);
 
-Route::resource('data', UserDataController::class)->only(['show', 'store', 'update', 'destroy']);
+Route::resource('data', UserDataController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
 
 Route::resource('orders', OrderController::class);
 Route::resource('items', OrderItemController::class);

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('postal_code');
             $table->string('phone_number');
-            $table->foreignId('user_id')->nullable(true)->default(null);
+            $table->foreignId('user_id')->nullable(true);
             $table->timestamps();
         });
     }

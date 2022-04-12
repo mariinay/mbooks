@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserDataCollection;
 use App\Http\Resources\UserDataResource;
 use App\Models\User;
 use App\Models\UserData;
@@ -17,7 +18,8 @@ class UserDataController extends Controller
      */
     public function index()
     {
-        //
+        $data = UserData::all();
+        return new UserDataCollection($data);
     }
 
     /**
@@ -60,6 +62,7 @@ class UserDataController extends Controller
             'city' => $request->city,
             'postal_code' => $request->postal_code,
             'phone_number' => $request->phone_number,
+            'user_id' => $request->user_id,
 
         ]);
 
@@ -145,5 +148,14 @@ class UserDataController extends Controller
         $user->update;*/
         $userData->delete();
         return response()->json('User data deleted successfully.');
+    }
+
+    public function showByUser($user_id)
+    {
+        $user_data = UserData::get()->where('user_id', $user_id);
+        if (is_null($user_data)) {
+            return response()->json('Data not found', 404);
+        }
+        return new UserDataResource($user_data);
     }
 }

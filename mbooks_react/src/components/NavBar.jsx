@@ -3,7 +3,7 @@ import Mbooks from "../Mbooks.png"
 import "./NavBar.css"
 import axios from 'axios'
 import { Outlet } from 'react-router-dom'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 
 const NavBar = ({token,setToken, cartNum}) => {
@@ -71,7 +71,7 @@ const NavBar = ({token,setToken, cartNum}) => {
                         <Link to='/register' className="nav-link">Register</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to='#' className="nav-link">Profile</Link>
+                        <Link to='/user-data' className="nav-link">Profile</Link>
                     </li>
                 </ul>
                 </div>
