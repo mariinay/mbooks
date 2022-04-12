@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 import { Link } from "react-router-dom";
 
 
-const NavBar = ({token, cartNum}) => {
+const NavBar = ({token,setToken, cartNum}) => {
 
     function handleLogout(){
 
@@ -25,6 +25,7 @@ const NavBar = ({token, cartNum}) => {
         .then(function (response) {
             console.log(JSON.stringify(response.data));
             window.sessionStorage.setItem("auth_token",null);
+            setToken(null);
         })
         .catch(function (error) {
             console.log(error);
@@ -62,12 +63,12 @@ const NavBar = ({token, cartNum}) => {
                         </li>
                 ):(      
                         <li className="nav-item">
-                            <Link to='#' className="nav-link" onClick={handleLogout}>Logout</Link>
+                            <Link to='/books' className="nav-link" onClick={handleLogout}>Logout</Link>
                         </li>
                 )}
                     
                     <li className="nav-item">
-                        <Link to='/register' className="nav-link"></Link>
+                        <Link to='/register' className="nav-link">Register</Link>
                     </li>
                     <li className="nav-item">
                         <Link to='#' className="nav-link">Profile</Link>

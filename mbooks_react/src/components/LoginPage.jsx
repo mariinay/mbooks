@@ -29,7 +29,7 @@ const LoginPage = ({addToken}) => {
         {
             console.log(res.data);
             if(res.data.success===true) {
-               localStorage.setItem("auth_token",res.data.access_token);
+                window.sessionStorage.setItem("auth_token",res.data.access_token);
                 console.log(res.data);
                 addToken(res.data.access_token);
                 navigate("/books");

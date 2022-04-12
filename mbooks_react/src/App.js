@@ -132,7 +132,7 @@ function App() {
     return (
     <BrowserRouter className="App">
         <Routes>
-            <Route path="/" element={<NavBar token={token} cartNum={cartNum}/>}>
+            <Route path="/" element={<NavBar token={token} setToken={setToken} cartNum={cartNum}/>}>
 
                 <Route path="/login" element={<LoginPage addToken={addToken}/>}/>  
             
