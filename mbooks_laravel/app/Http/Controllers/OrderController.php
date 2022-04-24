@@ -61,7 +61,7 @@ class OrderController extends Controller
 
         $order = Order::find($o->id);
 
-        return response()->json(['Order created successfully.', new OrderResource($order)]);
+        return response()->json(['Order created successfully.', new OrderResource($order), 'success' => true]);
     }
 
     /**
@@ -122,7 +122,7 @@ class OrderController extends Controller
 
         $order->save();
 
-        return response()->json(['Order updated successfully.', new OrderResource($order)]);
+        return response()->json(['Order updated successfully.', new OrderResource($order), 'success' => true]);
     }
 
     /**

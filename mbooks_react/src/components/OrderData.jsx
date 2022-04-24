@@ -9,7 +9,6 @@ const OrderData = ({orderItems, books, totalPrice}) => {
                 <th>Book</th>
                 <th>Price</th>
                 <th>Quantity</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>

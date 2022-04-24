@@ -5,28 +5,23 @@ import { Link } from "react-router-dom";
 import UserDataForm from './UserDataForm';
 import OrderData from './OrderData';
 import axios from "axios"
+import { useNavigate } from 'react-router-dom';
+import {showMessage} from "../services/Alerts";
 
 
-const OrderPage = ({currentUser, currentUserData, orderItems, totalPrice, books, cartNum}) => {
+const OrderPage = ({currentUser, currentUserData, updateUserData, orderItems, totalPrice, books, cartNum}) => {
 
-  const btnName = "Submit";
-
-  function vlidate(){
-    if (currentUser != null && currentUser.user_data != null){
-        return currentUser.user_data;
-    }else{
-        return "";
-    }
-}
+  const btnName = "Continue";
+  let navigate = useNavigate();
 
   const[userData, setUserData] =useState({
-    name: vlidate().name,
-    surname: vlidate().surname,
-    email: vlidate().email,
-    adress: vlidate().adress,
-    city: vlidate().city,
-    postal_code: vlidate().postal_code,
-    phone_number: vlidate().phone_number,
+    name: currentUserData != null ? currentUserData.name : "",
+    surname: currentUserData != null ? currentUserData.surname : "",
+    email: currentUser != null ? currentUser.email : "",
+    adress: currentUserData != null ? currentUserData.adress : "",
+    city: currentUserData != null ? currentUserData.city : "",
+    postal_code: currentUserData != null ? currentUserData.postal_code : "",
+    phone_number: currentUserData != null ? currentUserData.phone_number : "",
     user_id: currentUser != null ? currentUser.id : null,
   });
 
@@ -46,14 +41,11 @@ const OrderPage = ({currentUser, currentUserData, orderItems, totalPrice, books,
 
   function handleData() {
 
-    let userDataForOrder;
-
     if(currentUserData == null){
-      userDataForOrder = addNewData();
+      addNewData();
     }else{
-      userDataForOrder = updateData();
+      updateData();
     }
-    return userDataForOrder;
 }
 
 function addNewData(){
@@ -63,11 +55,15 @@ function addNewData(){
                 console.log(res.data);
                 if(res.data.success===true) {
                     console.log(res.data);
-                    return res.data.id;
+                    updateUserData(res.data[1]);
+                    navigate("/order-preview");
                 }
 
             }).
-            catch((e)=>{console.log(e);});
+            catch((e)=>{
+              console.log(e);
+              showMessage('Error', 'error', 'center', 3000, false)
+            });
 }
 
 function updateData(){
@@ -77,26 +73,32 @@ function updateData(){
                 console.log(res.data);
                 if(res.data.success===true) {
                     console.log(res.data);
-                    return res.data.id;
+                    updateUserData(res.data[1]);
+                    navigate("/order-preview");
                 }
 
             }).
-            catch((e)=>{console.log(e);});
+            catch((e)=>{
+              console.log(e);
+            });
 }
+
 
 function handleOrder(e){
     e.preventDefault();
-    //save user data on save button
+
     let user_data_id = handleData();
+    //save user data on save button
+    //const user_data_id = await handleData();
 
     //save order with user data id on submit button
     const order = {
-      price_total: totalPrice,
+      price_total: totalPrice,   
       item_count: cartNum,
       user_data_id: user_data_id,
     }
-    console.log(order);
-    /*axios.post("http://127.0.0.1:8000/api/orders",order).
+    //console.log(order);
+    axios.post("http://127.0.0.1:8000/api/orders",order).
             then((res)=>
             {
                 console.log(res.data);
@@ -105,7 +107,7 @@ function handleOrder(e){
                 }
 
             }).
-            catch((e)=>{console.log(e);});*/
+            catch((e)=>{console.log(e);});
     //create new order item array without id and with order id 
     //save order items on confirm button
   };
@@ -118,10 +120,10 @@ function handleOrder(e){
       </div>
       <div className='userData'>
         <label>2. User data</label>
-        <UserDataForm currentUser={currentUser} handleInput={handleInput}/>
+        <UserDataForm currentUser={currentUser} currentUserData={currentUserData} handleInput={handleInput}/>
       </div>
       <div className='orderButton'>
-        <Button handle={handleOrder} btnName={btnName}/>
+        <Button handle={handleData} btnName={btnName}/>
       </div>
 
     </div>
