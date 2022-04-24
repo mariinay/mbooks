@@ -84,7 +84,7 @@ const NavBar = ({token, cartNum, currentUser, removeToken}) => {
                         </li>
                 ):(      
                         <li className="nav-item">
-                            <Link to='#' className="nav-link" onClick={handleLogout}>Logout</Link>
+                            <Link to='/books' className="nav-link" onClick={handleLogout}>Logout</Link>
                         </li>
                 )}
                     

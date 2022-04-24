@@ -8,11 +8,13 @@ const FilterCategory = ({books}) => {
     
 
   return (
+    <div className="all-books-page">
             <div className="all-books">
                 {books==null ? <></> :  books.map((book)=>(
                     <OneBook  book={book} key={book.id} />
                 ))}
             </div>
+    </div>
   )
 }
 
