@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from "axios"
-import "./LoginPage.css"
+import "../style/LoginPage.css"
 import Mbooks from "../Mbooks.png"
 import { useNavigate } from 'react-router-dom'
 

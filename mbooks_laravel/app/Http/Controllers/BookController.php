@@ -53,12 +53,13 @@ class BookController extends Controller
         $book = Book::create([
             'title' => $request->title,
             'description' => $request->description,
+            'image' => $request->image,
             'author_id' => $request->author_id,
             'category_id' => $request->category_id,
-            //'user_id' => Auth::user()->id
+            'price' => $request->price,
         ]);
 
-        return response()->json(['Book created successfully.', new BookResource($book)]);
+        return response()->json(['Book created successfully.', new BookResource($book), 'success' => true]);
     }
 
     /**
@@ -107,12 +108,14 @@ class BookController extends Controller
 
         $book->title = $request->title;
         $book->description = $request->description;
+        $book->image = $request->image;
         $book->author_id = $request->author_id;
         $book->category_id = $request->category_id;
+        $book->price = $request->price;
 
         $book->save();
 
-        return response()->json(['Book updated successfully.', new BookResource($book)]);
+        return response()->json(['Book updated successfully.', new BookResource($book), 'success' => true]);
     }
 
     /**

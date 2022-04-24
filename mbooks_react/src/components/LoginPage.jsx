@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from "axios"
-import "./LoginPage.css"
+import "../style/LoginPage.css"
 import Mbooks from "../Mbooks.png"
 import { useNavigate } from 'react-router-dom'
 import UserData from './UserData'
@@ -30,7 +30,7 @@ const LoginPage = ({addToken, addUser}) => {
         {
             console.log(res.data);
             if(res.data.success===true) {
-               localStorage.setItem("auth_token",res.data.access_token);
+               window.sessionStorage.setItem("auth_token",res.data.access_token);
                 console.log(res.data);
                 addToken(res.data.access_token);
                 addUser(userData);

@@ -1,7 +1,7 @@
 import React from 'react'
 import OneBook from './OneBook';
 
-import "./OneBook.css"
+import "../style/OneBook.css"
 
 const FilterAuthors = ({books}) => {
 

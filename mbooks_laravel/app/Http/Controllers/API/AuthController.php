@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +45,8 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['success'=>true, 'access_token' => $token, 'token_type' => 'Bearer']);    }
+        return response()->json(['success' => true, 'access_token' => $token, 'token_type' => 'Bearer']);
+    }
 
     public function logout()
     {
@@ -52,5 +54,29 @@ class AuthController extends Controller
         return [
             'message' => 'Logout successful'
         ];
+    }
+
+    public function update(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:9'
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+
+        return response()->json(['User data updated successfully.', new UserResource($user), 'success' => true]);
     }
 }

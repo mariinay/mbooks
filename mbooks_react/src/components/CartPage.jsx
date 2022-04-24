@@ -9,12 +9,6 @@ const CartPage = ({orderItems, books, totalPrice, removeFromCart}) => {
 
 
     console.log(orderItems);
-   // const [total, setTotal] = useState(0);
-    /*orderItems==null ? <></> :  orderItems.map((item)=>(
-        books==null ? <></> :  books.map((book)=>(
-            book.id == item.book_id ? setTotal(total+=(book.price * item.quantity)) : <></>
-        ))
-    ))*/
 
     function navigateToOrderPage(){
         navigate("/order");

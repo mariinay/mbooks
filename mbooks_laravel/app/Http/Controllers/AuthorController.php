@@ -51,7 +51,7 @@ class AuthorController extends Controller
             'name' => $request->name,
         ]);
 
-        return response()->json(['Author created successfully.', new AuthorResource($author)]);
+        return response()->json(['Author created successfully.', new AuthorResource($author), 'success' => true]);
     }
 
     /**
@@ -103,7 +103,7 @@ class AuthorController extends Controller
 
         $author->save();
 
-        return response()->json(['Author updated successfully.', new AuthorResource($author)]);
+        return response()->json(['Author updated successfully.', new AuthorResource($author), 'success' => true]);
     }
 
     /**

@@ -56,7 +56,7 @@ class OrderItemController extends Controller
             'quantity' => $request->quantity
         ]);
 
-        return response()->json(['Order item created successfully.', new OrderItemResource($item)]);
+        return response()->json(['Order item created successfully.', new OrderItemResource($item), 'success' => true]);
     }
 
     /**

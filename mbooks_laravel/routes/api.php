@@ -44,7 +44,7 @@ Route::resource('orders.items', ItemsByOrderController::class)->only('index');
 Route::resource('authors', AuthorController::class);
 Route::resource('categories', CategoryController::class);
 
-Route::resource('books', BookController::class);
+Route::resource('books', BookController::class)->only(['index', 'show']);;
 Route::resource('authors.books', AuthorBookController::class)->only('index');
 Route::resource('categories.books', CategoryBookController::class)->only('index');
 
@@ -57,11 +57,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return auth()->user();
     });
 
+    Route::group(['middleware' => ['admin']], function () {
+    });
+
     Route::resource('books', BookController::class)->only(['update', 'store', 'destroy'])->middleware('admin');
 
     Route::resource('authors', AuthorController::class)->only(['update', 'store', 'destroy'])->middleware('admin');
 
     Route::resource('favbooks', FavBookController::class)->only(['index', 'show', 'store', 'destroy']);
+
+    Route::resource('orders', OrderController::class)->only('index')->middleware('admin');;
+
+    Route::put('/update-user', [AuthController::class, 'update']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class FavBookController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +21,8 @@ class FavBookController extends Controller
     public function index()
     {
         $user_id = auth()->user()->id;
+        //$user = $request->user;
+        //$user_id = $user->id;
         $books = FavBook::get()->where('user_id', $user_id);
         if (is_null($books)) {
             return response()->json('Data not found', 404);
@@ -45,7 +48,6 @@ class FavBookController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = auth()->user()->id;
 
         $validator = Validator::make($request->all(), [
             'book_id' => 'required'
@@ -57,10 +59,10 @@ class FavBookController extends Controller
 
         $favBook = FavBook::create([
             'book_id' => $request->book_id,
-            'user_id' => Auth::user()->id
+            'user_id' => auth()->user()->id,
         ]);
 
-        return response()->json(['Favourite book created successfully.', new FavBookResource($favBook)]);
+        return response()->json(['Favourite book created successfully.', new FavBookResource($favBook), 'success' => true]);
     }
 
     /**

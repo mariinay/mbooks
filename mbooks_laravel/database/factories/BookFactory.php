@@ -21,7 +21,7 @@ class BookFactory extends Factory
         return [
             'title' => $this->faker->word(),
             'description' => $this->faker->paragraph(),
-            'image' => '/mbooks_images/pic1.png',
+            'image' => 'https://www.laguna.rs/_img/korice/4985/zivot_na_nasoj_planeti-dejvid_atenboro_v.png',
             'author_id' => Author::factory(),
             'category_id' => Category::factory(),
             'price' => $this->faker->randomFloat(2, 5, 100),

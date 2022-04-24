@@ -12,13 +12,14 @@
     }
     
     .book {
-      align-items: center;
+      text-align: center;
       border-style: solid;
       border-width: 4px;
       border-color: rgb(33, 37, 41);
       border-radius: 10px;
       margin: 10px;
-      height: 350px;
+      height: 440px;
+      width: 250px;
       background-color:rgb(33, 37, 41);
     }
     
@@ -28,8 +29,6 @@
     }
     .book-img-top {
       border-radius: 10px;
-      
-      width: 200px;
       height: 150px;
       border-style: solid;
       border-color: white;
@@ -39,6 +38,7 @@
     .link {
       color: white;
       padding-top: 10px;
+      display: block;
     }
   
   
@@ -47,7 +47,10 @@
       margin-top: 30px;
     }
   
-  
+    .book-price{
+      display: inline;
+      margin-right: 5px;
+    }
   
     .book-button{
       background-color: transparent;
@@ -57,7 +60,22 @@
       padding-left: 15px;
       padding-right: 15px;
       margin-top: 10px;
-      margin-left: 10px;
+      
     }
 
-  
+    .currency-button{
+      border-style: inherit;
+      border-radius: 20px;
+      text-align: center;
+      font-size: large;
+    }
+
+    .quantity{
+      margin-left: 5px;
+      margin-right: 5px;
+      width: 50px;
+    }
+
+    .button-section{
+      text-align: center;
+    }

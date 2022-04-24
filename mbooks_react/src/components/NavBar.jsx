@@ -1,12 +1,13 @@
 import React from 'react'
 import Mbooks from "../Mbooks.png"
-import "./NavBar.css"
+import "../style/NavBar.css"
 import axios from 'axios'
 import { Outlet } from 'react-router-dom'
 import { Link } from "react-router-dom"
 
 
-const NavBar = ({token, cartNum}) => {
+const NavBar = ({token, cartNum, currentUser, removeToken}) => {
+
 
     function handleLogout(){
 
@@ -25,12 +26,22 @@ const NavBar = ({token, cartNum}) => {
         .then(function (response) {
             console.log(JSON.stringify(response.data));
             window.sessionStorage.setItem("auth_token",null);
+            removeToken();
         })
         .catch(function (error) {
             console.log(error);
         });
 
     }
+
+    const admin = () =>{
+        if(currentUser != null){
+          return currentUser.admin;
+         }else{
+           return false;
+         }
+      }
+
   return (
     <div>
         <nav className="navbar navbar-expand-xl navbar-dark bg-dark">
@@ -45,17 +56,28 @@ const NavBar = ({token, cartNum}) => {
                     <li className="nav-item">
                         <Link to='/books'className="nav-link active" aria-current="page" >Books</Link>
                     </li>
+                {token != null ?
                     <li className="nav-item">
                         <Link to='/favourites' className="nav-link ">Favourites</Link>
                     </li>
+                :
+                    <></>    
+                }    
                     <li className="nav-item">
                         <Link to='/cart' className="nav-link">Cart {cartNum}</Link>
                     </li> 
+                    {admin() ? (
+                         <li className="nav-item">
+                            <Link to='/admin' className="nav-link">Orders</Link>
+                        </li> 
+                    ):
+                        <></>
+                    }
                     <li className="nav-item">
                         <Link to='/contact' className="nav-link">Contact</Link>
-                    </li>               
+                    </li>       
                 </ul>
-                <ul className="navbar-nav me-auto mb-10 mb-xl-0" style={{paddingLeft:55+"rem"}}>
+                <ul className="navbar-nav me-auto mb-10 mb-xl-0" style={{paddingLeft:45+"rem"}}>
                 {token==null ? (
                         <li className="nav-item">
                             <Link to='/login' className="nav-link">Login</Link>
@@ -67,11 +89,15 @@ const NavBar = ({token, cartNum}) => {
                 )}
                     
                     <li className="nav-item">
-                        <Link to='/register' className="nav-link"></Link>
+                        <Link to='/register' className="nav-link">Register</Link>
                     </li>
+                {token!=null ? (
                     <li className="nav-item">
                         <Link to='/user-data' className="nav-link">Profile</Link>
                     </li>
+                ):
+                    <></>
+                }
                 </ul>
                 </div>
             </div>

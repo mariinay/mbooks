@@ -2,15 +2,14 @@ import React from 'react'
 import OneBook from './OneBook';
 import axios from 'axios';
 import { useState,useEffect } from 'react';
-import "./OneBook.css"
+import "../style/OneBook.css"
 import { Link } from 'react-router-dom';
 
 
 
 
-const BooksPage = ({readMore,seeAuthor,seeCategories,addToCart}) => {
+const BooksPage = ({readMore,seeAuthor,seeCategories,addToCart, token, currentUser, deleteBook, favouriteBooks, addToFavourites, removeFromFavourites, authors, categories}) => {
 
-    
 
     const [books, setBooks]=useState();
     useEffect(()=>{
@@ -22,26 +21,6 @@ const BooksPage = ({readMore,seeAuthor,seeCategories,addToCart}) => {
         }
     },[books]);
 
-
-    const [authors, setAuthors]=useState();
-    useEffect(()=>{
-        if(authors==null){
-            axios.get("http://127.0.0.1:8000/api/authors").then((res)=>{
-                console.log(res.data);
-                setAuthors(res.data.authors);
-            });
-        }
-    },[authors]);
-
-    const [categories, setCategories]=useState();
-    useEffect(()=>{
-        if(categories==null){
-            axios.get("http://127.0.0.1:8000/api/categories").then((res)=>{
-                console.log(res.data);
-                setCategories(res.data.categories);
-            });
-        }
-    },[categories]);
    
     
     const [sortedBooks, setSortedBooks]=useState();
@@ -60,7 +39,12 @@ const BooksPage = ({readMore,seeAuthor,seeCategories,addToCart}) => {
         setSortedBooks(books)
     }
     
-  
+    function admin(){
+        if(token!=null){
+            return currentUser.admin;
+        }
+    }
+
  
     return (
     
@@ -70,17 +54,23 @@ const BooksPage = ({readMore,seeAuthor,seeCategories,addToCart}) => {
             <p>
                 <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse3" aria-expanded="false" aria-controls="multiCollapse3" style={{backgroundColor:"rgb(33, 37, 41)"}}>Categories</button>
                 <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse1" aria-expanded="false" aria-controls="multiCollapse1" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>Authors</button>
-                <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse2" aria-expanded="false" aria-controls="multiCollapse2" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>Search</button>
-                <button className="btn btn-primary mb-1" type="button" onClick={sort} style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>Sort</button>
+                <button className="btn btn-primary mb-1" type="button" onClick={sort} style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>Sort By Name</button>
+                {admin() ? 
+                    <button className="btn btn-primary mb-1" type="button" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>
+                        <Link to="/book-update" onClick={()=> readMore(null)} style={{color:"white", textDecoration:"none"}}>Add new book</Link>
+                    </button>
+                : 
+                    <></>
+                }
             </p>
 
             
 
-            <div className="row">
+            <div className="row" style={{display:"flex", width:540}}>
 
                     
-                <div className="col">
-                    <div className="multi-collapse collapse show" id="multiCollapse3" >
+                <div className="col" style={{width:270, paddingLeft:50}}>
+                    <div className="multi-collapse collapse " id="multiCollapse3" >
                         {categories==null ? <></> : categories.map((category) => (
                              <li  key={category.id}><Link to="/filterCategories" onClick={()=> seeCategories(category.id)} style={{background:'transparent', borderWidth:0+"px", color:"black"}} >{category.name}</Link></li> ))} 
                                 
@@ -88,8 +78,8 @@ const BooksPage = ({readMore,seeAuthor,seeCategories,addToCart}) => {
                 </div>
 
                 
-                <div className="col">
-                    <div className="multi-collapse collapse show" id="multiCollapse1" >
+                <div className="col" style={{width:270, paddingLeft:50}}>
+                    <div className="multi-collapse collapse " id="multiCollapse1" >
                         {authors==null ? <></> : authors.map((author) => (
                              <li key={author.id}><Link to="/filterAuthors" onClick={()=> seeAuthor(author.id)} style={{background:'transparent', borderWidth:0+"px", color:"black"}} >{author.name}</Link></li>  ))} 
                                      
@@ -97,22 +87,28 @@ const BooksPage = ({readMore,seeAuthor,seeCategories,addToCart}) => {
                 </div>
 
             
-                <div className="col">
-                    <div className="multi-collapse collapse show" id="multiCollapse2" >
-                    <div className="card card-body">
-                        Type in a book
-                    </div>
-                    </div>
-                </div>
             </div>
 
 
 
 
             <div className="all-books">
-                {books==null ? <></> :  books.map((book)=>(
-                    <OneBook  book={book} key={book.id} readMore={readMore} addToCart={addToCart}/>
+                {books == null ? <></> : books.map(book => (
+                    <OneBook  
+                        book={book} 
+                        key={book.id} 
+                        currentUser={currentUser}
+                        readMore={readMore} 
+                        deleteBook={deleteBook}
+                        addToCart={addToCart} 
+                        admin={admin} 
+                        favouriteBooks={favouriteBooks}
+                        addToFavourites={addToFavourites} 
+                        removeFromFavourites={removeFromFavourites} 
+                        favourite={false}
+                    />
                 ))}
+                
             </div>
         </div>
     )

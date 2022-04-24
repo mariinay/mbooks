@@ -51,7 +51,7 @@ class UserDataController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json([$validator->errors(), 'success' => false]);
         }
 
         $user_data = UserData::create([
@@ -66,7 +66,7 @@ class UserDataController extends Controller
 
         ]);
 
-        return response()->json(['User data stored successfully.', new UserDataResource($user_data)]);
+        return response()->json(['User data stored successfully.', new UserDataResource($user_data), 'success' => true]);
     }
 
     /**
@@ -130,7 +130,7 @@ class UserDataController extends Controller
 
         $user_data->save();
 
-        return response()->json(['User data updated successfully.', new UserDataResource($user_data)]);
+        return response()->json(['User data updated successfully.', new UserDataResource($user_data), 'success' => true]);
     }
 
     /**

@@ -13,13 +13,13 @@ const UserDataUpdate = ({currentUser, currentUserData, updateUserData}) => {
     console.log(currentUserData);
 
     const[userData, setUserData] =useState({
-        name: currentUser.user_data != null ? currentUser.user_data.name : "",
-        surname: currentUser.user_data != null ? currentUser.user_data.surname : "",
+        name: currentUserData != null ? currentUserData.name : "",
+        surname: currentUserData != null ? currentUserData.surname : "",
         email: currentUser != null ? currentUser.email : "",
-        adress: currentUser.user_data != null ? currentUser.user_data.adress : "",
-        city: currentUser.user_data != null ? currentUser.user_data.city : "",
-        postal_code: currentUser.user_data != null ? currentUser.user_data.postal_code : "",
-        phone_number: currentUser.user_data != null ? currentUser.user_data.phone_number : "",
+        adress: currentUserData != null ? currentUserData.adress : "",
+        city: currentUserData != null ? currentUserData.city : "",
+        postal_code: currentUserData != null ? currentUserData.postal_code : "",
+        phone_number: currentUserData != null ? currentUserData.phone_number : "",
         user_id: currentUser != null ? currentUser.id : null,
     });
     function handleInput(e){
@@ -39,41 +39,47 @@ const UserDataUpdate = ({currentUser, currentUserData, updateUserData}) => {
 
     }
 
+    const [error, setError] = useState();
+
     function addNewData(){
         axios.post("http://127.0.0.1:8000/api/data",userData).
                 then((res)=>
                 {
-                    console.log(res.data);
                     if(res.data.success===true) {
                         console.log(res.data);
-                        updateUserData(userData);
-                        navigate("/books");
+                        updateUserData(res.data[1]);
+                        navigate("/user-data");
                     }
 
                 }).
-                catch((e)=>{console.log(e);});
+                catch((e)=>{
+                    console.log(e);
+                    setError(e);
+                });
     }
 
     function updateData(){
         axios.put("http://127.0.0.1:8000/api/data/"+currentUserData.id,userData).
                 then((res)=>
                 {
-                    console.log(res.data);
                     if(res.data.success===true) {
                         console.log(res.data);
-                        updateUserData(userData);
-                        navigate("/books");
+                        updateUserData(res.data[1]);
+                        navigate("/user-data");
                     }
 
                 }).
-                catch((e)=>{console.log(e);});
+                catch((e)=>{
+                    console.log(e);
+                    setError(e);
+                });
     }
 
     const btnName = "Save";
 
   return (
       <div>
-        <UserDataForm currentUser={currentUser} handleInput={handleInput} />
+        <UserDataForm currentUser={currentUser} currentUserData={currentUserData} handleInput={handleInput} />
         <Button handle={handleUpdate} btnName={btnName}/>
       </div>
     

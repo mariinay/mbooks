@@ -1,5 +1,5 @@
 import React from 'react'
-import "./Contact.css"
+import "../style/Contact.css"
 import { FaFacebookSquare} from "react-icons/fa"
 import {AiOutlineMail,AiOutlineClockCircle,AiOutlinePhone,AiFillInstagram,AiOutlineTwitter} from "react-icons/ai"
 import {BiMap} from "react-icons/bi"

@@ -1,8 +1,8 @@
 import React from 'react'
-import "./Button.css"
+import "../style/Button.css"
 
 
-const SaveDataButton = ({handle, btnName}) => {
+const Button = ({handle, btnName}) => {
 
 
   return (
@@ -10,4 +10,4 @@ const SaveDataButton = ({handle, btnName}) => {
   )
 }
 
-export default SaveDataButton
+export default Button
