@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Button from './Button'
-import UserData from './UserData'
-import { Link } from "react-router-dom";
 import UserDataForm from './UserDataForm';
 import OrderData from './OrderData';
 import axios from "axios"
@@ -31,13 +29,6 @@ const OrderPage = ({currentUser, currentUserData, updateUserData, orderItems, to
     setUserData(newUserData);
   }
 
-  const[orderData, setOrderData] = useState({
-    price_total: totalPrice,
-    item_count: cartNum,
-    user_data_id: null,
-  });
-
-  const[newOrderItems, setNewOrderItems] = useState([]);
 
   function handleData() {
 
@@ -83,34 +74,6 @@ function updateData(){
             });
 }
 
-
-function handleOrder(e){
-    e.preventDefault();
-
-    let user_data_id = handleData();
-    //save user data on save button
-    //const user_data_id = await handleData();
-
-    //save order with user data id on submit button
-    const order = {
-      price_total: totalPrice,   
-      item_count: cartNum,
-      user_data_id: user_data_id,
-    }
-    //console.log(order);
-    axios.post("http://127.0.0.1:8000/api/orders",order).
-            then((res)=>
-            {
-                console.log(res.data);
-                if(res.data.success===true) {
-                    console.log(res.data);
-                }
-
-            }).
-            catch((e)=>{console.log(e);});
-    //create new order item array without id and with order id 
-    //save order items on confirm button
-  };
 
   return (
     <div className='order'>
