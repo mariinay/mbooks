@@ -45,3 +45,12 @@ th, td{
 .submit{
     margin-left: 15px;
 }
+
+@media (max-width:900px){
+    .order-preview{
+        display: block;
+    }
+    .user-data, .order-data{
+        width: auto;
+    }
+}

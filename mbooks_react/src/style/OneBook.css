@@ -79,3 +79,35 @@
     .button-section{
       text-align: center;
     }
+
+    .filters-position{
+      display: flex;
+    }
+
+    .filters-section{
+      display: flex;
+      margin: auto;
+    }
+
+  
+
+    .col{
+      text-align: left;
+      padding-left: 50px;
+    }
+
+    .heading{
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px){
+      .filters-section{
+        display: block;
+        text-align: center;
+      }
+      .col{
+        text-align: left;
+        padding-left: 80px;
+      }
+    } 

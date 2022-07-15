@@ -77,20 +77,8 @@ const NavBar = ({token, cartNum, currentUser, removeToken}) => {
                         <Link to='/contact' className="nav-link">Contact</Link>
                     </li>       
                 </ul>
-                <ul className="navbar-nav me-auto mb-10 mb-xl-0" style={{paddingLeft:45+"rem"}}>
-                {token==null ? (
-                        <li className="nav-item">
-                            <Link to='/login' className="nav-link">Login</Link>
-                        </li>
-                ):(      
-                        <li className="nav-item">
-                            <Link to='/books' className="nav-link" onClick={handleLogout}>Logout</Link>
-                        </li>
-                )}
-                    
-                    <li className="nav-item">
-                        <Link to='/register' className="nav-link">Register</Link>
-                    </li>
+                <ul className="navbar-nav me-auto mb-10 mb-xl-0" id='responsive' >
+                
                 {token!=null ? (
                     <li className="nav-item">
                         <Link to='/user-data' className="nav-link">Profile</Link>
@@ -98,6 +86,22 @@ const NavBar = ({token, cartNum, currentUser, removeToken}) => {
                 ):
                     <></>
                 }
+                
+                {token==null ? (
+                        <>
+                            <li className="nav-item">
+                                <Link to='/login' className="nav-link">Login</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to='/register' className="nav-link">Register</Link>
+                            </li>
+                        </>
+                ):(      
+                        <li className="nav-item">
+                            <Link to='/books' className="nav-link" onClick={handleLogout}>Logout</Link>
+                        </li>
+                )}
+
                 </ul>
                 </div>
             </div>

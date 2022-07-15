@@ -49,54 +49,57 @@ const BooksPage = ({readMore,seeAuthor,seeCategories,addToCart, token, currentUs
     return (
     
         <div className="all-books-page" >
-            <h1 style={{marginLeft:23+"px"}}>Books</h1>
+            <h1 className='heading' >Books</h1>
 
-            <p>
-                <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse3" aria-expanded="false" aria-controls="multiCollapse3" style={{backgroundColor:"rgb(33, 37, 41)"}}>
-                    Categories
-                </button>
-                <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse1" aria-expanded="false" aria-controls="multiCollapse1" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>
-                    Authors
-                </button>
-                <button className="btn btn-primary mb-1" type="button" onClick={sort} style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>
-                    Sort By Name
-                </button>
-                {admin() ? 
-                    <button className="btn btn-primary mb-1" type="button" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>
-                        <Link to="/book-update" onClick={()=> readMore(null)} style={{color:"white", textDecoration:"none"}}>
-                            Add new book
-                        </Link>
-                    </button>
-                : 
-                    <></>
-                }
-            </p>
-
-            <div className="row" style={{display:"flex", width:540}}>
-
-                <div className="col" style={{width:270, paddingLeft:50}}>
-                    <div className="multi-collapse collapse " id="multiCollapse3" >
-                        {categories==null ? <></> : categories.map((category) => (
-                            <li  key={category.id}>
-                                <Link to="/filterCategories" onClick={()=> seeCategories(category.id)} style={{background:'transparent', borderWidth:0+"px", color:"black"}} >
-                                     {category.name}
-                                </Link>
-                            </li> ))}      
-                    </div>
-                </div>
-
+            <div className='filters-position'>
                 
-                <div className="col" style={{width:270, paddingLeft:50}}>
-                    <div className="multi-collapse collapse " id="multiCollapse1" >
-                        {authors==null ? <></> : authors.map((author) => (
-                            <li key={author.id}>
-                                <Link to="/filterAuthors" onClick={()=> seeAuthor(author.id)} style={{background:'transparent', borderWidth:0+"px", color:"black"}} >
-                                    {author.name}
-                                </Link>
-                            </li>  ))}            
+                <div className='filters-section' >
+                    <div>
+                        <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse3" aria-expanded="false" aria-controls="multiCollapse3" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>
+                            Categories
+                        </button>
+                        <div className="col" style={{width:270}}>
+                            <div className="multi-collapse collapse " id="multiCollapse3" >
+                                {categories==null ? <></> : categories.map((category) => (
+                                    <li  key={category.id}>
+                                        <Link to="/filterCategories" onClick={()=> seeCategories(category.id)} style={{background:'transparent', borderWidth:0+"px", color:"black"}} >
+                                            {category.name}
+                                        </Link>
+                                    </li> ))}      
+                            </div>
+                        </div>
                     </div>
+                    <div>
+                        <button className="btn btn-primary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapse1" aria-expanded="false" aria-controls="multiCollapse1" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>
+                            Authors
+                        </button>
+                        <div className="col" style={{width:270}}>
+                            <div className="multi-collapse collapse " id="multiCollapse1" >
+                                {authors==null ? <></> : authors.map((author) => (
+                                    <li key={author.id}>
+                                        <Link to="/filterAuthors" onClick={()=> seeAuthor(author.id)} style={{background:'transparent', borderWidth:0+"px", color:"black"}} >
+                                            {author.name}
+                                        </Link>
+                                    </li>  ))}            
+                            </div>
+                        </div>
+                    </div>
+                    <button className="btn btn-primary mb-1" type="button" onClick={sort} style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>
+                        Sort By Name
+                    </button>
+                    {admin() ? 
+                        <button className="btn btn-primary mb-1" type="button" style={{backgroundColor:"rgb(33, 37, 41)", marginLeft:20+"px"}}>
+                            <Link to="/book-update" onClick={()=> readMore(null)} style={{color:"white", textDecoration:"none"}}>
+                                Add new book
+                            </Link>
+                        </button>
+                    : 
+                        <></>
+                    }
                 </div>
             </div>
+
+
 
 
 
